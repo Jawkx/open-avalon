@@ -1,0 +1,13 @@
+@import "./globalScss/reset.scss";
+@import "./globalScss/breakpoint.scss";
+
+.App {
+  width: 100vw;
+  min-height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include lg {
+    width: 30vw;
+  }
+}
