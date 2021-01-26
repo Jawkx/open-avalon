@@ -4,10 +4,22 @@
 // $secondary-color: #bee3db;
 // $background-color: #555b6e;
 // $background-color-2: #8c92a6;
+@font-face {
+  font-family: "Charm";
+  src: local("Charm"), url(../fonts/Charm/Charm-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Charm";
+  font-weight: 700;
+  src: local("Charm"), url(../fonts/Charm/Charm-Bold.ttf) format("truetype");
+}
 
-$primary-font-family: "Open Sans", sans-serif;
-$background-color: #f6f6f6;
-$primary-color: #ff8e6e;
-$secondary-color: #515070;
-$font-color: #ffffff;
-$background-color-2: #ffbb91;
+//$primary-font-family: "Charm", cursive;
+
+$charm: "Charm", cursive;
+$dark-brown: #312b21;
+$med-brown: #474133;
+$light-brown: #a38c52;
+$sand: #ffeec2;
+$red: #de7264;
+$green: #a5c975;

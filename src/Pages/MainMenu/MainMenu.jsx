@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { MdClose } from "react-icons/md";
 
 import { addGame } from "./addGame";
 import joinGame from "./joinGame";
 
 import styles from "./MainMenu.module.scss";
+import { GiSwordInStone } from "react-icons/gi";
+
 import {
   CreateGamePopUp,
   JoinGamePopUp,
@@ -35,7 +36,10 @@ const MainMenu = () => {
 
   return (
     <div id="mainMenu" className={styles.section}>
-      <h1 className={styles.title}>OPEN AVALON</h1>
+      <GiSwordInStone className={styles.logo} />
+      <h1 className={styles.title}>
+        OPEN <br /> AVALON
+      </h1>
       <h1
         className={styles.btn}
         onClick={() => setJoinGamePopUp(!joinGamePopUp)}

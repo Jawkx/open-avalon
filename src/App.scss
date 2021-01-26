@@ -1,3 +1,4 @@
+@import "./globalScss/variables.scss";
 @import "./globalScss/reset.scss";
 @import "./globalScss/breakpoint.scss";
 
@@ -6,7 +7,7 @@
   min-height: 100vh;
   margin-left: auto;
   margin-right: auto;
-
+  background-color: $dark-brown;
   @include lg {
     width: 30vw;
   }

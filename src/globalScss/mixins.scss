@@ -1,0 +1,7 @@
+@import "./variables.scss";
+
+@mixin button($bd-size, $txtcolor, $bg-color, $bd-color) {
+  background-color: $bg-color;
+  color: $txtcolor;
+  border: $bd-size ridge $bd-color;
+}

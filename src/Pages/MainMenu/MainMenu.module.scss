@@ -1,98 +1,36 @@
 @import "../../globalScss/variables.scss";
 @import "../../globalScss/breakpoint.scss";
+@import "../../globalScss/mixins.scss";
 
 .section {
-  text-align: center;
-  background-color: $background-color;
   min-height: 100vh;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+
   justify-content: center;
 }
 
+.logo {
+  font-size: 12em;
+  color: $sand;
+}
+
 .title {
-  color: $primary-color;
-  font-family: $primary-font-family;
-  font-size: 2.9em;
+  font-size: 3.5em;
+  font-family: $charm;
   font-weight: 700;
-  margin-bottom: 1.5em;
+  margin: 0.5em;
+  color: $sand;
 }
 
 .btn {
-  font-family: $primary-font-family;
-  background-color: $primary-color;
-  color: $font-color;
-  border-radius: 0.5em;
-  border: none;
-  padding: 0.6em;
-  margin: 1em;
-  font-weight: 500;
-  font-size: 1.3em;
-}
-
-.popup {
-  width: 100%;
-  height: 14em;
-  padding: 2.5em 0.5em 0.3em 0.5em;
-  background-color: $background-color-2;
-  border-radius: 1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-
-  opacity: 1;
-  animation-name: fadeInOpacity;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in;
-  animation-duration: 0.5s;
-
-  svg {
-    font-size: 2em;
-    color: $background-color;
-    position: absolute;
-    top: 3%;
-    right: 4%;
-  }
-
-  input[type="submit"]:focus {
-    outline: 0;
-    outline-color: transparent;
-    outline-style: none;
-  }
-
-  input[type="text"] {
-    border: none;
-    border-bottom: 1px solid $secondary-color;
-    padding: 0.3em;
-    margin-bottom: 0.3em;
-    width: 80%;
-    background-color: $background-color-2;
-    color: $secondary-color;
-    text-align: center;
-    font-size: 1.3em;
-    font-weight: 600;
-  }
-
-  input[type="text"]:focus {
-    outline: 0;
-    outline-color: transparent;
-    outline-style: none;
-  }
-  input[type="text"]::placeholder {
-    color: $secondary-color;
-    opacity: 0.3;
-    text-align: center;
-    font-size: 1.3em;
-  }
-}
-
-@keyframes fadeInOpacity {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  @include button(3px, $sand, $med-brown, $sand);
+  width: 60%;
+  font-family: $charm;
+  font-size: 2em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0.5em;
 }
