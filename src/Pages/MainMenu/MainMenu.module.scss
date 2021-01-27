@@ -3,6 +3,7 @@
 @import "../../globalScss/mixins.scss";
 
 .section {
+  position: relative;
   min-height: 100vh;
   text-align: center;
   display: flex;
@@ -26,11 +27,38 @@
 }
 
 .btn {
-  @include button(3px, $sand, $med-brown, $sand);
-  width: 60%;
+  @include button(3px, $sand, $med-brown, $sand, ridge);
+  width: 70%;
   font-family: $charm;
   font-size: 2em;
   padding-top: 0.2em;
   padding-bottom: 0.2em;
   margin: 0.5em;
+}
+
+.popup {
+  text-align: center;
+  @include popup($med-brown, $sand, $sand);
+  min-height: 18em;
+  width: 23em;
+
+  @include textBox($sand, #000000, $light-brown, #000000);
+  input[type="text"] {
+    font-family: $charm;
+    font-size: 1.6em;
+  }
+
+  input[type="submit"] {
+    font-family: $charm;
+    font-size: 1.5em;
+    font-weight: 700;
+    @include button(3, $sand, $light-brown, $sand, solid);
+  }
+}
+
+.closeButton {
+  font-size: 1.5em;
+  position: absolute;
+  right: 5%;
+  top: 5%;
 }

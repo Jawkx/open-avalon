@@ -33,7 +33,7 @@ const Lobby = ({ match }) => {
     return () => {
       unsuscribe();
     };
-  }, []);
+  }, [gameRef, playerID]);
 
   return (
     <section className={styles.section} id="lobby">

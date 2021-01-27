@@ -32,7 +32,7 @@ const joinGame = (gameID, name) => {
           players: newPlayers,
         })
         .then(() => {
-          history.push("/lobby/" + gameID + "-" + "playerID");
+          history.push(`/lobby/${gameID}-${playerID}`);
           history.go(0);
         });
     } else {

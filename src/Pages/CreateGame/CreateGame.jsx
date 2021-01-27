@@ -44,7 +44,7 @@ const CreateGame = ({ match }) => {
     return () => {
       unsuscribe();
     };
-  }, []);
+  }, [gameRef, playerID]);
 
   const switchRoles = (roles) => {
     setSpecialRoles((prev) => ({ ...prev, [roles]: !prev[roles] }));

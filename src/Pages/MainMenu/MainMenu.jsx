@@ -42,19 +42,28 @@ const MainMenu = () => {
       </h1>
       <h1
         className={styles.btn}
-        onClick={() => setJoinGamePopUp(!joinGamePopUp)}
+        onClick={() => {
+          window.navigator.vibrate(30);
+          setJoinGamePopUp(!joinGamePopUp);
+        }}
       >
         Join Game
       </h1>
       <h1
         className={styles.btn}
-        onClick={() => setCreateGamePopUp(!createGamePopUp)}
+        onClick={() => {
+          window.navigator.vibrate(30);
+          setCreateGamePopUp(!createGamePopUp);
+        }}
       >
         Create Game
       </h1>
       <h1
         className={styles.btn}
-        onClick={() => setContinueGamePopUp(!continueGamePopUp)}
+        onClick={() => {
+          window.navigator.vibrate(30);
+          setContinueGamePopUp(!continueGamePopUp);
+        }}
       >
         Continue Game
       </h1>

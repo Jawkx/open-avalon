@@ -1,6 +1,8 @@
 import React from "react";
 import Popup from "reactjs-popup";
-import { MdClose } from "react-icons/md";
+import { GiCrossMark } from "react-icons/gi";
+
+import styles from "./MainMenu.module.scss";
 
 export const CreateGamePopUp = ({
   toggle,
@@ -11,8 +13,11 @@ export const CreateGamePopUp = ({
 }) => {
   return (
     <Popup open={toggle} closeOnDocumentClick={false}>
-      <form onSubmit={(e) => handleCreateGame(e)}>
-        <MdClose onClick={() => setCreateGamePopUp(false)} />
+      <form className={styles.popup} onSubmit={(e) => handleCreateGame(e)}>
+        <GiCrossMark
+          className={styles.closeButton}
+          onClick={() => setCreateGamePopUp(false)}
+        />
         <input
           placeholder="Your Name"
           type="text"
@@ -36,8 +41,11 @@ export const JoinGamePopUp = ({
 }) => {
   return (
     <Popup open={toggle} closeOnDocumentClick={false}>
-      <form onSubmit={(e) => handleJoinGame(e)}>
-        <MdClose onClick={() => setJoinGamePopUp(false)} />
+      <form className={styles.popup} onSubmit={(e) => handleJoinGame(e)}>
+        <GiCrossMark
+          className={styles.closeButton}
+          onClick={() => setJoinGamePopUp(false)}
+        />
         <input
           placeholder="Game ID"
           type="text"
@@ -64,8 +72,11 @@ export const ContinueGamePopUp = ({
 }) => {
   return (
     <Popup open={toggle} closeOnDocumentClick={false}>
-      <form>
-        <MdClose onClick={() => setContinueGamePopUp(false)} />
+      <form className={styles.popup}>
+        <GiCrossMark
+          className={styles.closeButton}
+          onClick={() => setContinueGamePopUp(false)}
+        />
         <input
           placeholder="Player ID"
           type="text"

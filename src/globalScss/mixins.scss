@@ -1,7 +1,49 @@
 @import "./variables.scss";
 
-@mixin button($bd-size, $txtcolor, $bg-color, $bd-color) {
+@mixin button($bd-size, $txtcolor, $bg-color, $bd-color, $type) {
   background-color: $bg-color;
   color: $txtcolor;
-  border: $bd-size ridge $bd-color;
+  border: $bd-size $type $bd-color;
+}
+
+@mixin popup($bgc, $txtc, $bdc) {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  padding: 2em 1em 1em 1em;
+  background-color: $bgc;
+  color: $txtc;
+  border: 5px ridge $bdc;
+  box-shadow: 0px 13px 23px 8px rgba(0, 0, 0, 0.74);
+
+  opacity: 1;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.3s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@mixin textBox($bgc, $txtc, $txtcp, $bdc) {
+  input[type="text"] {
+    text-align: center;
+    background-color: $bgc;
+    color: $txtc;
+  }
+
+  input::placeholder {
+    text-align: center;
+    font-size: 1em;
+    color: $txtcp;
+  }
 }
