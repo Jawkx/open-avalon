@@ -8,6 +8,7 @@ import revealRoles from "../Lobby/revealRoles";
 
 import styles from "./CreateGame.module.scss";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
+import { GiFallDown } from "react-icons/gi";
 
 var db = firebase.firestore();
 
@@ -61,14 +62,16 @@ const CreateGame = ({ match }) => {
     setStartGamePopup(true);
   };
   const playersJsx = players.map((player, idx) => (
-    <li idx={idx}>
-      <MdKeyboardArrowUp
-        className={idx === 0 ? styles.hidden : null}
+    <li className={styles.player} idx={idx} key={idx}>
+      <GiFallDown
+        className={idx === 0 ? styles.hiddenDown : styles.arrowUp}
         onClick={() => handleSwapArray(idx, true)}
       />
       {player.name}
-      <MdKeyboardArrowDown
-        className={idx === players.length - 1 ? styles.hidden : null}
+      <GiFallDown
+        className={
+          idx === players.length - 1 ? styles.hiddenUp : styles.arrowDown
+        }
         onClick={() => handleSwapArray(idx, false)}
       />
     </li>
@@ -88,21 +91,19 @@ const CreateGame = ({ match }) => {
   }
   return (
     <section className={styles.section} id="create-game">
-      <div className={styles.idContainer}>
-        <h1 className={styles.title}> Game ID: </h1>
+      <div>
+        <h1 className={styles.title}>Game ID</h1>
         <h1 className={styles.gameId}> {gameId} </h1>
       </div>
-      <div className={styles.container}>
-        <h1 className={styles.title}> Players </h1>
-        <ul className={styles.playersList}>{playersJsx}</ul>
+      <div className={styles.playersSection}>
+        <h1 className={styles.playersSectionTitle}> Players </h1>
+        <ul>{playersJsx}</ul>
       </div>
-      <div className={styles.container}>
-        <h1 className={styles.title}>Roles Selection</h1>
-        <ul className={styles.rolesSelections}>{rolesSelectionButtons}</ul>
+      <div>
+        <h1>Roles Selection</h1>
+        <ul>{rolesSelectionButtons}</ul>
       </div>
-      <h2 className={styles.startGame} onClick={() => handleStartGame()}>
-        Start Game
-      </h2>
+      <h2 onClick={() => handleStartGame()}>Start Game</h2>
       <Popup open={startGamePopup} closeOnDocumentClick={false}>
         <h1> Your role is {userRoles}</h1>
         <ul>

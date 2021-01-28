@@ -1,1 +1,66 @@
 @import "../../globalScss/variables.scss";
+@import "../../globalScss/mixins.scss";
+
+.section {
+  position: relative;
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  font-family: $charm;
+}
+
+.title {
+  color: $sand;
+  font-size: 3em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+}
+
+.gameId {
+  color: $sand;
+  font-size: 2em;
+  letter-spacing: 0.7em;
+
+  transform: translate(0.5em);
+}
+
+.playersSection {
+  @include frontSection($med-brown, $sand);
+  min-height: 40vh;
+  margin-top: 1.5em;
+  padding: 1em 2em 1em 2em;
+}
+
+.playersSectionTitle {
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  color: $sand;
+}
+
+.player {
+  background-color: $light-brown;
+  border: black solid 2px;
+  color: $dark-brown;
+  font-size: 1.3em;
+  margin: 0.3em;
+  padding: 0.1em;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hiddenDown,
+.hiddenUp {
+  visibility: hidden;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}

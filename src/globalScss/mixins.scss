@@ -47,3 +47,9 @@
     color: $txtcp;
   }
 }
+
+@mixin frontSection($bgc, $bdc) {
+  background-color: $bgc;
+  border: 5px ridge $bdc;
+  min-width: 80%;
+}
