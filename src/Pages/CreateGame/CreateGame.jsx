@@ -7,10 +7,26 @@ import swapArray from "./swapArray";
 import revealRoles from "../Lobby/revealRoles";
 
 import styles from "./CreateGame.module.scss";
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
-import { GiFallDown } from "react-icons/gi";
+import {
+  GiFallDown,
+  GiWingedScepter,
+  GiMachete,
+  GiDualityMask,
+  GiCrownedSkull,
+  GiDaemonSkull,
+  GiWizardStaff,
+} from "react-icons/gi";
 
 var db = firebase.firestore();
+
+const rolesIconDict = {
+  merlin: <GiWizardStaff />,
+  assassin: <GiMachete />,
+  percival: <GiWingedScepter />,
+  morgana: <GiDualityMask />,
+  oberon: <GiDaemonSkull />,
+  mordred: <GiCrownedSkull />,
+};
 
 const CreateGame = ({ match }) => {
   const playerID = match.params.uid;
@@ -82,10 +98,14 @@ const CreateGame = ({ match }) => {
   for (let [roles] of Object.entries(specialRoles)) {
     rolesSelectionButtons.push(
       <li
-        className={specialRoles[roles] ? styles.highlighted : styles.normal}
+        className={
+          specialRoles[roles]
+            ? styles.rolesButtonHighlighted
+            : styles.rolesButtonNormal
+        }
         onClick={() => switchRoles(roles)}
       >
-        {roles}
+        {rolesIconDict[roles]} {roles}
       </li>
     );
   }
@@ -99,9 +119,11 @@ const CreateGame = ({ match }) => {
         <h1 className={styles.playersSectionTitle}> Players </h1>
         <ul>{playersJsx}</ul>
       </div>
-      <div>
-        <h1>Roles Selection</h1>
-        <ul>{rolesSelectionButtons}</ul>
+      <div className={styles.rolesSection}>
+        <h1 className={styles.rolesSectionTitle}>Roles Selection</h1>
+        <ul className={styles.rolesButtonsContainer}>
+          {rolesSelectionButtons}
+        </ul>
       </div>
       <h2 onClick={() => handleStartGame()}>Start Game</h2>
       <Popup open={startGamePopup} closeOnDocumentClick={false}>
