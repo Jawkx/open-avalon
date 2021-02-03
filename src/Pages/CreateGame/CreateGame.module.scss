@@ -34,6 +34,9 @@
   min-height: 40vh;
   margin-top: 1.5em;
   padding: 1em 0.5em 1em 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .playersSectionTitle {
@@ -45,11 +48,12 @@
 
 .player {
   background-color: $light-brown;
-  border: black solid 2px;
+  border: $dark-brown solid 2px;
   color: $dark-brown;
-  font-size: 1.3em;
-  margin: 0.3em;
+  font-size: 1.5em;
+  margin: 0.2em;
   padding: 0.1em;
+  width: 11em;
 
   display: flex;
   justify-content: space-between;
@@ -104,4 +108,12 @@
 }
 .rolesButtonHighlighted {
   @include button(2px, $sand, $light-brown, $sand, solid);
+}
+
+.startGameButton {
+  @include button(3px, $sand, $light-brown, $sand, solid);
+  margin: 0.5em;
+  font-size: 2em;
+  padding: 0.3em;
+  color: $sand;
 }

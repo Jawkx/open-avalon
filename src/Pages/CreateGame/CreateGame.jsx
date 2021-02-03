@@ -64,10 +64,12 @@ const CreateGame = ({ match }) => {
   }, [gameRef, playerID]);
 
   const switchRoles = (roles) => {
+    window.navigator.vibrate(25);
     setSpecialRoles((prev) => ({ ...prev, [roles]: !prev[roles] }));
   };
 
   const handleSwapArray = (idx, upDown) => {
+    window.navigator.vibrate(25);
     gameRef.update({
       players: swapArray(players, idx, upDown),
     });
@@ -125,7 +127,9 @@ const CreateGame = ({ match }) => {
           {rolesSelectionButtons}
         </ul>
       </div>
-      <h2 onClick={() => handleStartGame()}>Start Game</h2>
+      <h2 className={styles.startGameButton} onClick={() => handleStartGame()}>
+        Create Island
+      </h2>
       <Popup open={startGamePopup} closeOnDocumentClick={false}>
         <h1> Your role is {userRoles}</h1>
         <ul>
