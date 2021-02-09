@@ -117,3 +117,38 @@
   padding: 0.3em;
   color: $sand;
 }
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  text-align: center;
+  @include popup($med-brown, $sand, $sand);
+  min-height: 18em;
+  width: 85vw;
+}
+
+.userRole {
+  font-size: 1.8em;
+  span {
+    text-transform: uppercase;
+  }
+}
+
+.rolesIcon {
+  font-size: 6em;
+}
+
+.playerName,
+.playerRoles {
+  font-size: 1.3em;
+}
+
+.playerRoles {
+  text-transform: uppercase;
+}
+.playerDescription {
+  margin-top: 0.1em;
+  font-size: 1em;
+}

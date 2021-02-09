@@ -16,7 +16,7 @@ const makeID = (length) => {
 };
 
 const joinGame = (gameID, name) => {
-  const gameRef = db.collection("games").doc(gameID);
+  const gameRef = db.collection("rooms").doc(gameID);
 
   gameRef.get().then((doc) => {
     if (doc.exists && !doc.data().gameStarted) {

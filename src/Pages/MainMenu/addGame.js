@@ -30,7 +30,7 @@ export const addGame = (firstPlayerName) => {
     ],
   };
 
-  db.collection("games")
+  db.collection("rooms")
     .doc(gameID)
     .set(gameData)
     .then(() => {

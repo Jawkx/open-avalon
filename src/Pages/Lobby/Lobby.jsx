@@ -1,18 +1,41 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../../firebaseInit";
 import Popup from "reactjs-popup";
-import { GiSwordInStone } from "react-icons/gi";
 import styles from "./Lobby.module.scss";
 
 import revealRoles from "./revealRoles";
+import {
+  GiBarbarian,
+  GiOrcHead,
+  GiSwordInStone,
+  GiWingedScepter,
+  GiMachete,
+  GiDualityMask,
+  GiCrownedSkull,
+  GiDaemonSkull,
+  GiWizardStaff,
+} from "react-icons/gi";
 
 var db = firebase.firestore();
+
+const rolesIconDict = {
+  servant: <GiBarbarian />,
+  minion: <GiOrcHead />,
+  merlin: <GiWizardStaff />,
+  assassin: <GiMachete />,
+  percival: <GiWingedScepter />,
+  morgana: <GiDualityMask />,
+  oberon: <GiDaemonSkull />,
+  mordred: <GiCrownedSkull />,
+};
+
 const Lobby = ({ match }) => {
   const playerID = match.params.uid;
   const gameID = match.params.gameID;
 
-  const gameRef = db.collection("games").doc(gameID);
   const [players, setPlayers] = useState([]);
+
+  const [rolesIcon, setRolesIcon] = useState(null);
   const [userRoles, setUserRoles] = useState("");
   const [knownRoles, setKnownRoles] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
@@ -20,21 +43,29 @@ const Lobby = ({ match }) => {
   const [startGamePopup, setStartGamePopup] = useState(false);
 
   useEffect(() => {
-    const unsuscribe = gameRef.onSnapshot((doc) => {
-      const data = doc.data();
-      const players = data.players;
-      setPlayers(players);
-      if (data.gameStarted === true) {
-        const [userRoles, knownRoles] = revealRoles(players, playerID);
-        setKnownRoles(knownRoles);
-        setUserRoles(userRoles);
-        setGameStarted(true);
-      }
-    });
+    const unsuscribe = db
+      .collection("rooms")
+      .doc(match.params.gameID)
+      .onSnapshot((doc) => {
+        const data = doc.data();
+        console.log("Snapshot Updated");
+        const players = data.players;
+        setPlayers(players);
+        if (data.gameStarted === true) {
+          const [userRoles, knownRoles] = revealRoles(
+            players,
+            match.params.uid
+          );
+          setKnownRoles(knownRoles);
+          setUserRoles(userRoles);
+          setGameStarted(true);
+          setRolesIcon(rolesIconDict[userRoles]);
+        }
+      });
     return () => {
       unsuscribe();
     };
-  }, [gameRef, playerID]);
+  }, []);
 
   return (
     <section className={styles.section} id="lobby">
@@ -71,11 +102,16 @@ const Lobby = ({ match }) => {
 
       <Popup open={startGamePopup} closeOnDocumentClick={false}>
         <div className={styles.popup}>
-          <h1> Your role is {userRoles}</h1>
+          <h1 className={styles.userRole}>
+            {" "}
+            Your role is <span>{userRoles}</span>
+          </h1>
+          <i className={styles.rolesIcon}>{rolesIcon}</i>
           <ul>
-            {knownRoles.map((player) => (
-              <li>
-                {player.name} is a {player.roles}
+            {knownRoles.map((player, idx) => (
+              <li key={idx} className={styles.playerDescription}>
+                <span className={styles.playerName}>{player.name}</span> is{" "}
+                <span className={styles.playerRoles}>{player.roles}</span>
               </li>
             ))}
           </ul>
