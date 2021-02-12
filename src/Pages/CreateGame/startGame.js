@@ -1,3 +1,5 @@
+import { minionsNum, rolesInfo } from "../../rolesRule";
+
 const shuffle = (arr) => {
   var j, x, i;
   for (i = arr.length - 1; i > 0; i--) {
@@ -9,39 +11,19 @@ const shuffle = (arr) => {
   return arr;
 };
 
-const minionsNum = {
-  5: 2,
-  6: 2,
-  7: 3,
-  8: 3,
-  9: 3,
-  10: 4,
-};
-
-const specialRolesSide = {
-  merlin: true,
-  assassin: false,
-  percival: true,
-  morgana: false,
-  oberon: false,
-  mordred: false,
-};
-
 const assignRoles = (players, specialRoles) => {
   var rolesArray = [];
   var assignedRolesArr = [];
   var minionsCount = minionsNum[players.length];
 
-  for (let [key, value] of Object.entries(specialRoles)) {
-    if (value) {
-      rolesArray.push(key);
-      if (!specialRolesSide[key]) {
+  for (let [role, present] of Object.entries(specialRoles)) {
+    if (present) {
+      rolesArray.push(role);
+      if (!rolesInfo[role][side]) {
         minionsCount -= 1;
       }
     }
   }
-
-  rolesArray = shuffle(rolesArray);
 
   for (let i = 0; i < minionsCount; i++) {
     rolesArray.push("minion");
@@ -51,6 +33,8 @@ const assignRoles = (players, specialRoles) => {
     rolesArray.push("servant");
   }
 
+  rolesArray = shuffle(rolesArray);
+
   players.forEach((player, idx) => {
     assignedRolesArr.push({
       name: player.name,
@@ -59,7 +43,6 @@ const assignRoles = (players, specialRoles) => {
     });
   });
 
-  console.log(assignedRolesArr);
   return assignedRolesArr;
 };
 

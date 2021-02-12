@@ -7,30 +7,10 @@ import swapArray from "./swapArray";
 import revealRoles from "../Lobby/revealRoles";
 
 import styles from "./CreateGame.module.scss";
-import {
-  GiFallDown,
-  GiBarbarian,
-  GiOrcHead,
-  GiWingedScepter,
-  GiMachete,
-  GiDualityMask,
-  GiCrownedSkull,
-  GiDaemonSkull,
-  GiWizardStaff,
-} from "react-icons/gi";
+import { GiFallDown } from "react-icons/gi";
 
+import { minionsNum, rolesInfo } from "../../rolesRule";
 var db = firebase.firestore();
-
-const rolesIconDict = {
-  servant: <GiBarbarian />,
-  minion: <GiOrcHead />,
-  merlin: <GiWizardStaff />,
-  assassin: <GiMachete />,
-  percival: <GiWingedScepter />,
-  morgana: <GiDualityMask />,
-  oberon: <GiDaemonSkull />,
-  mordred: <GiCrownedSkull />,
-};
 
 const CreateGame = ({ match }) => {
   const [players, setPlayers] = useState([]);
@@ -93,6 +73,7 @@ const CreateGame = ({ match }) => {
     );
     setStartGamePopup(true);
   };
+
   const playersJsx = players.map((player, idx) => (
     <li className={styles.player} idx={idx} key={idx}>
       <GiFallDown
@@ -109,22 +90,24 @@ const CreateGame = ({ match }) => {
     </li>
   ));
 
-  var rolesSelectionButtons = [];
+  let rolesSelectionButtons = [];
 
-  for (let [roles] of Object.entries(specialRoles)) {
-    rolesSelectionButtons.push(
-      <li
-        key={roles}
-        className={
-          specialRoles[roles]
-            ? styles.rolesButtonHighlighted
-            : styles.rolesButtonNormal
-        }
-        onClick={() => switchRoles(roles)}
-      >
-        {rolesIconDict[roles]} {roles}
-      </li>
-    );
+  for (let [roles] of Object.entries(rolesInfo)) {
+    if (roles.isSpecial) {
+      rolesSelectionButtons.push(
+        <li
+          key={roles}
+          className={
+            specialRoles[roles]
+              ? styles.rolesButtonHighlighted
+              : styles.rolesButtonNormal
+          }
+          onClick={() => switchRoles(roles)}
+        >
+          {rolesInfo[roles].icon} {roles}
+        </li>
+      );
+    }
   }
   return (
     <section className={styles.section} id="create-game">
@@ -136,6 +119,10 @@ const CreateGame = ({ match }) => {
         <h1 className={styles.playersSectionTitle}> Players </h1>
         <ul>{playersJsx}</ul>
       </div>
+      <p>
+        There will be {minionsNum[players.length]} impostor from Mordred in this
+        Island
+      </p>
       <div className={styles.rolesSection}>
         <h1 className={styles.rolesSectionTitle}>Roles Selection</h1>
         <ul className={styles.rolesButtonsContainer}>

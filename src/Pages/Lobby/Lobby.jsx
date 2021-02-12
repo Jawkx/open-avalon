@@ -4,30 +4,10 @@ import Popup from "reactjs-popup";
 import styles from "./Lobby.module.scss";
 
 import revealRoles from "./revealRoles";
-import {
-  GiBarbarian,
-  GiOrcHead,
-  GiSwordInStone,
-  GiWingedScepter,
-  GiMachete,
-  GiDualityMask,
-  GiCrownedSkull,
-  GiDaemonSkull,
-  GiWizardStaff,
-} from "react-icons/gi";
+import { GiSwordInStone } from "react-icons/gi";
+import { rolesInfo } from "../../rolesRule";
 
 var db = firebase.firestore();
-
-const rolesIconDict = {
-  servant: <GiBarbarian />,
-  minion: <GiOrcHead />,
-  merlin: <GiWizardStaff />,
-  assassin: <GiMachete />,
-  percival: <GiWingedScepter />,
-  morgana: <GiDualityMask />,
-  oberon: <GiDaemonSkull />,
-  mordred: <GiCrownedSkull />,
-};
 
 const Lobby = ({ match }) => {
   const playerID = match.params.uid;
@@ -59,7 +39,7 @@ const Lobby = ({ match }) => {
           setKnownRoles(knownRoles);
           setUserRoles(userRoles);
           setGameStarted(true);
-          setRolesIcon(rolesIconDict[userRoles]);
+          setRolesIcon(rolesInfo[userRoles].icon);
         }
       });
     return () => {
