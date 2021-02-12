@@ -1,4 +1,4 @@
-import { minionsNum, rolesInfo } from "../../rolesRule";
+import { minionsNum, rolesInfo, missionInfo } from "../../rolesRule";
 
 const shuffle = (arr) => {
   var j, x, i;
@@ -11,6 +11,32 @@ const shuffle = (arr) => {
   return arr;
 };
 
+const generateMissions = (playersCount) => {
+  if (playersCount < 5) {
+    console.log("ERROR AT GENERATE MISSION");
+  }
+
+  const requiredPlayers = missionInfo[playersCount].requiredPlayers;
+  const requireMultipleFails = missionInfo[playersCount].requireMultipleFails;
+
+  let missionsDetail = [];
+  let missionDetail = {};
+  for (let round = 0; round < 5; round++) {
+    missionDetail = {
+      round: round,
+      requiredPlayer: requiredPlayers[round],
+      requireMultipleFail: requireMultipleFails[round],
+      roundWinner: null,
+      roundFinished: false,
+      players: [],
+    };
+
+    missionsDetail.push(missionDetail);
+  }
+
+  return missionsDetail;
+};
+
 const assignRoles = (players, specialRoles) => {
   var rolesArray = [];
   var assignedRolesArr = [];
@@ -19,7 +45,7 @@ const assignRoles = (players, specialRoles) => {
   for (let [role, present] of Object.entries(specialRoles)) {
     if (present) {
       rolesArray.push(role);
-      if (!rolesInfo[role][side]) {
+      if (!rolesInfo[role].side) {
         minionsCount -= 1;
       }
     }
@@ -48,10 +74,11 @@ const assignRoles = (players, specialRoles) => {
 
 const startGame = (gameRef, players, specialRoles) => {
   const assignedRolesPlayers = assignRoles(players, specialRoles);
-
+  const missionsDetail = generateMissions(players.length);
   gameRef.update({
     players: assignedRolesPlayers,
     gameStarted: true,
+    missions: missionsDetail,
   });
 };
 export default startGame;
