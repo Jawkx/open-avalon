@@ -60,6 +60,14 @@
   align-items: center;
 }
 
+.info {
+  margin-top: 1em;
+  font-size: 1em;
+  color: $blue;
+}
+.warning {
+  color: $red;
+}
 .hiddenDown,
 .hiddenUp {
   visibility: hidden;

@@ -45,7 +45,7 @@ const Lobby = ({ match }) => {
     return () => {
       unsuscribe();
     };
-  }, []);
+  });
 
   return (
     <section className={styles.section} id="lobby">

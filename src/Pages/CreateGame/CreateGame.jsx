@@ -31,7 +31,7 @@ const CreateGame = ({ match }) => {
   useEffect(() => {
     const unsuscribe = db
       .collection("rooms")
-      .doc(gameId)
+      .doc(match.params.gameID)
       .onSnapshot((doc) => {
         const data = doc.data();
         const players = data.players;
@@ -43,13 +43,13 @@ const CreateGame = ({ match }) => {
           );
           setKnownRoles(knownRoles);
           setUserRoles(userRoles);
-          setRolesIcon(rolesIconDict[userRoles]);
+          setRolesIcon(rolesInfo[userRoles].icon);
         }
       });
     return () => {
       unsuscribe();
     };
-  }, []);
+  });
 
   const switchRoles = (roles) => {
     window.navigator.vibrate(25);
@@ -93,7 +93,7 @@ const CreateGame = ({ match }) => {
   let rolesSelectionButtons = [];
 
   for (let [roles] of Object.entries(rolesInfo)) {
-    if (roles.isSpecial) {
+    if (rolesInfo[roles].isSpecial) {
       rolesSelectionButtons.push(
         <li
           key={roles}
@@ -109,29 +109,42 @@ const CreateGame = ({ match }) => {
       );
     }
   }
+
   return (
     <section className={styles.section} id="create-game">
       <div>
         <h1 className={styles.title}>Game ID</h1>
-        <h1 className={styles.gameId}> {gameId} </h1>
+        <h1 className={styles.gameId}> {match.params.gameID} </h1>
       </div>
       <div className={styles.playersSection}>
         <h1 className={styles.playersSectionTitle}> Players </h1>
         <ul>{playersJsx}</ul>
       </div>
-      <p>
-        There will be {minionsNum[players.length]} impostor from Mordred in this
-        Island
-      </p>
+      {players.length >= 5 && (
+        <p className={styles.info}>
+          There will be {minionsNum[players.length]} impostor from Mordred in
+          this Island
+        </p>
+      )}
+
       <div className={styles.rolesSection}>
         <h1 className={styles.rolesSectionTitle}>Roles Selection</h1>
         <ul className={styles.rolesButtonsContainer}>
           {rolesSelectionButtons}
         </ul>
       </div>
-      <h2 className={styles.startGameButton} onClick={() => handleStartGame()}>
-        Create Island
-      </h2>
+
+      {players.length >= 5 ? (
+        <h2
+          className={styles.startGameButton}
+          onClick={() => handleStartGame()}
+        >
+          Create Island
+        </h2>
+      ) : (
+        <p className={styles.warning}> Minimum 5 players for a game </p>
+      )}
+
       <Popup open={startGamePopup} closeOnDocumentClick={false}>
         <div className={styles.popup}>
           <h1 className={styles.userRole}>
