@@ -5,6 +5,7 @@ import Popup from "reactjs-popup";
 import startGame from "./startGame";
 import swapArray from "./swapArray";
 import revealRoles from "../Lobby/revealRoles";
+import toGame from "./toGame";
 
 import styles from "./CreateGame.module.scss";
 import { GiFallDown } from "react-icons/gi";
@@ -34,6 +35,7 @@ const CreateGame = ({ match }) => {
       .doc(match.params.gameID)
       .onSnapshot((doc) => {
         const data = doc.data();
+        console.log("snapshot updated");
         const players = data.players;
         setPlayers(players);
         if (data.gameStarted === true) {
@@ -49,7 +51,7 @@ const CreateGame = ({ match }) => {
     return () => {
       unsuscribe();
     };
-  });
+  }, [match]);
 
   const switchRoles = (roles) => {
     window.navigator.vibrate(25);
@@ -74,6 +76,10 @@ const CreateGame = ({ match }) => {
     setStartGamePopup(true);
   };
 
+  const handleToGame = () => {
+    window.navigator.vibrate(25);
+    toGame(match.params.gameID, match.params.uid);
+  };
   const playersJsx = players.map((player, idx) => (
     <li className={styles.player} idx={idx} key={idx}>
       <GiFallDown
@@ -159,6 +165,9 @@ const CreateGame = ({ match }) => {
               </li>
             ))}
           </ul>
+          <h1 onClick={handleToGame} className={styles.popupButton}>
+            Start Game
+          </h1>
         </div>
       </Popup>
     </section>

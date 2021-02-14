@@ -60,7 +60,7 @@
   font-weight: 700;
   text-align: center;
   margin: 0.2em;
-  padding: 0.1em;
+  padding: 0.3em 0.1em 0.1em 0.3em;
   width: 11em;
 }
 
@@ -72,15 +72,22 @@
   color: $dark-brown;
 }
 
+.buttonShow,
 .buttonHide {
-  @include button(3px, $light-brown, $med-brown, $light-brown, solid);
   display: flex;
-  animation: fadeInOut 2.5s infinite linear;
-  align-items: center;
   margin: 1em;
-  font-size: 1.5em;
+  font-size: 1.8em;
   font-weight: 700;
   padding: 0.5em;
+}
+.buttonShow {
+  @include button(3px, $sand, $light-brown, $sand, solid);
+}
+
+.buttonHide {
+  @include button(3px, $light-brown, $med-brown, $light-brown, solid);
+  animation: fadeInOut 2.5s infinite linear;
+  align-items: center;
 }
 
 .loadingIcon {
@@ -123,7 +130,10 @@
 }
 
 .rolesIcon {
+  padding-top: 0.3em;
+  margin-bottom: 0.2em;
   font-size: 6em;
+  border-bottom: 2px solid $sand;
 }
 
 .playerName,
@@ -135,6 +145,13 @@
   text-transform: uppercase;
 }
 .playerDescription {
-  margin-top: 0.1em;
+  margin-top: 0.5em;
   font-size: 1em;
+}
+
+.popupButton {
+  @include button(2px, $sand, $light-brown, $sand, ridge);
+  font-size: 1.7em;
+  padding: 0.2em;
+  margin-top: 0.7em;
 }

@@ -145,7 +145,10 @@
 }
 
 .rolesIcon {
+  padding-top: 0.3em;
+  margin-bottom: 0.2em;
   font-size: 6em;
+  border-bottom: 2px solid $sand;
 }
 
 .playerName,
@@ -159,4 +162,11 @@
 .playerDescription {
   margin-top: 0.1em;
   font-size: 1em;
+}
+
+.popupButton {
+  @include button(2px, $sand, $light-brown, $sand, ridge);
+  font-size: 1.7em;
+  padding: 0.2em;
+  margin-top: 0.7em;
 }

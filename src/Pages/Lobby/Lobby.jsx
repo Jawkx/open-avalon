@@ -4,15 +4,14 @@ import Popup from "reactjs-popup";
 import styles from "./Lobby.module.scss";
 
 import revealRoles from "./revealRoles";
+import startGame from "./startGame";
+
 import { GiSwordInStone } from "react-icons/gi";
 import { rolesInfo } from "../../rolesRule";
 
 var db = firebase.firestore();
 
 const Lobby = ({ match }) => {
-  const playerID = match.params.uid;
-  const gameID = match.params.gameID;
-
   const [players, setPlayers] = useState([]);
 
   const [rolesIcon, setRolesIcon] = useState(null);
@@ -22,6 +21,9 @@ const Lobby = ({ match }) => {
 
   const [startGamePopup, setStartGamePopup] = useState(false);
 
+  const handleStartGame = () => {
+    startGame(match.params.gameID, match.params.uid);
+  };
   useEffect(() => {
     const unsuscribe = db
       .collection("rooms")
@@ -45,13 +47,13 @@ const Lobby = ({ match }) => {
     return () => {
       unsuscribe();
     };
-  });
+  }, [match]);
 
   return (
     <section className={styles.section} id="lobby">
       <div>
         <h1 className={styles.title}>Game ID:</h1>
-        <h1 className={styles.gameId}> {gameID}</h1>
+        <h1 className={styles.gameId}> {match.params.gameID}</h1>
       </div>
       <div className={styles.playersSection}>
         <h1 className={styles.playersSectionTitle}> Players: </h1>
@@ -60,7 +62,7 @@ const Lobby = ({ match }) => {
             <li
               key={idx}
               className={
-                player.id === playerID
+                player.id === match.params.uid
                   ? styles.playerHighlighted
                   : styles.playerNormal
               }
@@ -71,7 +73,12 @@ const Lobby = ({ match }) => {
         </ul>
       </div>
       {gameStarted ? (
-        <h1 onClick={() => setStartGamePopup(true)}> Start Game </h1>
+        <h1
+          className={styles.buttonShow}
+          onClick={() => setStartGamePopup(true)}
+        >
+          Reveal Roles
+        </h1>
       ) : (
         <h1 className={styles.buttonHide}>
           <GiSwordInStone className={styles.loadingIcon} />
@@ -95,7 +102,9 @@ const Lobby = ({ match }) => {
               </li>
             ))}
           </ul>
-          <h1>Start Game</h1>
+          <h1 onClick={handleStartGame} className={styles.popupButton}>
+            Start Game
+          </h1>
         </div>
       </Popup>
     </section>
