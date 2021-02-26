@@ -5,7 +5,6 @@ import Popup from "reactjs-popup";
 import startGame from "./startGame";
 import swapArray from "./swapArray";
 import revealRoles from "../Lobby/revealRoles";
-import toGame from "./toGame";
 
 import styles from "./CreateGame.module.scss";
 import { GiFallDown } from "react-icons/gi";
@@ -78,8 +77,9 @@ const CreateGame = ({ match }) => {
 
   const handleToGame = () => {
     window.navigator.vibrate(25);
-    toGame(match.params.gameID, match.params.uid);
+    window.location.href = `/game/${match.params.gameID}-${match.params.uid}`;
   };
+
   const playersJsx = players.map((player, idx) => (
     <li className={styles.player} idx={idx} key={idx}>
       <GiFallDown

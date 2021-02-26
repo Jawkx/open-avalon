@@ -1,8 +1,5 @@
-import { createBrowserHistory } from "history";
-
 import firebase from "../../firebaseInit";
 var db = firebase.firestore();
-let history = createBrowserHistory();
 
 const makeID = (length) => {
   var result = "";
@@ -34,8 +31,7 @@ export const addGame = (firstPlayerName) => {
     .doc(gameID)
     .set(gameData)
     .then(() => {
-      history.push("create-game/" + gameID + "-" + playerID);
-      history.go(0);
+      window.location.href = `create-game/${gameID}-${playerID}`;
     })
     .catch(function (error) {
       console.error("Error writing document: ", error);

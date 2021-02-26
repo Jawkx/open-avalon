@@ -1,8 +1,5 @@
-import { createBrowserHistory } from "history";
 import firebase from "../../firebaseInit";
 var db = firebase.firestore();
-
-let history = createBrowserHistory();
 
 const makeID = (length) => {
   var result = "";
@@ -32,8 +29,7 @@ const joinGame = (gameID, name) => {
           players: newPlayers,
         })
         .then(() => {
-          history.push(`/lobby/${gameID}-${playerID}`);
-          history.go(0);
+          window.location.href = `/lobby/${gameID}-${playerID}`;
         });
     } else {
       alert("INVALID GAME ID OR GAME HAD STARTED");

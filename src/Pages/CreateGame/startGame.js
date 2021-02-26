@@ -76,6 +76,14 @@ const startGame = (gameRef, players, specialRoles) => {
   const assignedRolesPlayers = assignRoles(players, specialRoles);
   const missionsDetail = generateMissions(players.length);
   gameRef.update({
+    selectedPlayersId: [],
+    currentKingId: players[0].id,
+    currentMission: 0,
+    comfirmedSelection: false,
+    approvedPlayers: [],
+    gameState: "selection",
+    voteCount: 0,
+    rejectCount: 0,
     players: assignedRolesPlayers,
     gameStarted: true,
     missions: missionsDetail,
